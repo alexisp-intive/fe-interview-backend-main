@@ -1,11 +1,4 @@
-import SearchIcon from "@mui/icons-material/Search";
-import {
-  Box,
-  Button,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
 import { useDebounce } from "use-debounce";
 import {
@@ -13,6 +6,7 @@ import {
   useSearchResultsQuery,
   useStarredQuery,
 } from "../api/search";
+import { SearchInput } from "./SearchInput";
 import { SearchList } from "./SearchList";
 
 export function SearchResults() {
@@ -38,21 +32,9 @@ export function SearchResults() {
         Search results
       </Typography>
 
-      <TextField
+      <SearchInput
+        value={searchQuery?.q || ""}
         id="search-input"
-        label="search by name or keyword "
-        size="medium"
-        sx={{
-          width: "40ch",
-          boxShadow: "0px 8px 20px rgba(0,0,0,0.06)",
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
         onChange={(e) => {
           setSearchQuery({ q: e.target.value, _limit: 10 });
         }}

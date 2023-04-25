@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
-  Box,
   Card,
   CardActionArea,
   CardActions,
