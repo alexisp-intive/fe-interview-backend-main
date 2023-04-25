@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-const { REACT_APP_API_URL } = process.env;
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+
 const GET_SEARCH_RESULT_KEY = "results";
 const GET_STARRED_RESULT_KEY = "starred";
 
