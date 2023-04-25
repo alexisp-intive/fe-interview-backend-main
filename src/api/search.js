@@ -53,7 +53,7 @@ const usePatchResultMutation = (queryParameters) => {
       ]);
 
       // Optimistically update to the new value
-      const newResults = previousResults?.map((result) =>
+      const newResults = previousResults.map((result) =>
         result.id === newResult.id ? { ...result, ...newResult } : result
       );
 

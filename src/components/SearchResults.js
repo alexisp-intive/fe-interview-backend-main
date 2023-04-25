@@ -21,7 +21,7 @@ export function SearchResults() {
   const { isLoading, isSuccess, error, data } =
     useSearchResultsQuery(searchParameters);
   const starredQuery = useStarredQuery();
-  const { mutate } = usePatchResultMutation();
+  const { mutate } = usePatchResultMutation(searchParameters);
 
   const totalStarred = starredQuery.data?.length || 0;
 
