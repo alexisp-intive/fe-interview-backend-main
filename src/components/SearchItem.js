@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { memo } from "react";
+import { formatAddress } from "../helpers/formatAddress";
 
 const SearchListCardActionArea = styled(CardActionArea)`
   display: flex;
@@ -17,9 +18,6 @@ const SearchListCardActionArea = styled(CardActionArea)`
   flex-direction: column;
   height: 100%;
 `;
-
-const formatAddress = ({ address1, city, state, postalCode, address2 } = {}) =>
-  [address1, city, state, postalCode, address2].filter(Boolean).join(", ");
 
 export const SearchItem = memo((props) => {
   const {

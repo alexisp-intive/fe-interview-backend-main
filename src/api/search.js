@@ -4,7 +4,7 @@ const { REACT_APP_API_URL } = process.env;
 const GET_SEARCH_RESULT_KEY = "results";
 const GET_STARRED_RESULT_KEY = "starred";
 
-const getSearchResults = async (params) => {
+const getSearchResultsAPI = async (params) => {
   const urlParams = new URLSearchParams(params);
   const response = await fetch(`${REACT_APP_API_URL}/search?${urlParams}`);
   const json = await response.json();
@@ -15,14 +15,14 @@ const getSearchResults = async (params) => {
 const useSearchResultsQuery = (queryParameters) => {
   return useQuery(
     [GET_SEARCH_RESULT_KEY, queryParameters],
-    () => getSearchResults(queryParameters),
+    () => getSearchResultsAPI(queryParameters),
     {
       enabled: !!queryParameters,
     }
   );
 };
 
-const updateStarredById = async ({ id, ...fields }) => {
+const patchSearchResultAPI = async ({ id, ...fields }) => {
   const response = await fetch(`${REACT_APP_API_URL}/search/${id}`, {
     method: "PATCH",
     body: JSON.stringify(fields),
@@ -38,7 +38,7 @@ const updateStarredById = async ({ id, ...fields }) => {
 const usePatchResultMutation = (queryParameters) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: updateStarredById,
+    mutationFn: patchSearchResultAPI,
     onMutate: async (newResult) => {
       // Cancel any outgoing refetches
       // (so they don't overwrite our optimistic update)
@@ -53,7 +53,7 @@ const usePatchResultMutation = (queryParameters) => {
       ]);
 
       // Optimistically update to the new value
-      const newResults = previousResults.map((result) =>
+      const newResults = previousResults?.map((result) =>
         result.id === newResult.id ? { ...result, ...newResult } : result
       );
 
@@ -82,7 +82,7 @@ const usePatchResultMutation = (queryParameters) => {
 
 const useStarredQuery = () => {
   return useQuery([GET_STARRED_RESULT_KEY], () =>
-    getSearchResults({ starred: true })
+    getSearchResultsAPI({ starred: true })
   );
 };
 

@@ -1,8 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("renders Search Page", () => {
+  test("renders page title", () => {
+    render(<App />);
+    const element = screen.getByText(/Search results/i);
+    expect(element).toBeInTheDocument();
+  });
+
+  test("render seearch input", () => {
+    render(<App />);
+    const element = screen.getByLabelText(/search by name or keyword/i);
+    expect(element).toBeInTheDocument();
+  });
 });

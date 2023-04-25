@@ -1,18 +1,20 @@
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, TextField as MuiTextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import styled from "@emotion/styled";
+
+const TextField = styled(MuiTextField)`
+  width: 40ch;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.13);
+`;
 
 export const SearchInput = (props) => (
   <TextField
     id="search-input"
     label="search by name or keyword"
     size="medium"
-    sx={{
-      width: "40ch",
-      boxShadow: "0px 8px 20px rgba(0,0,0,0.06)",
-    }}
     InputProps={{
-      startAdornment: (
-        <InputAdornment position="start">
+      endAdornment: (
+        <InputAdornment position="end">
           <SearchIcon />
         </InputAdornment>
       ),

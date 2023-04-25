@@ -10,12 +10,13 @@ import { SearchInput } from "./SearchInput";
 import { SearchList } from "./SearchList";
 
 export function SearchResults() {
-  const [searchQuery, setSearchQuery] = useState(undefined);
-  const [searchParameters] = useDebounce(searchQuery, 1000);
-  const { isLoading, isSuccess, error, data } =
-    useSearchResultsQuery(searchParameters);
+  const [searchParameters, setSearchParameters] = useState(undefined);
+  const [debouncedSearchParameters] = useDebounce(searchParameters, 1000);
+  const { isLoading, isSuccess, error, data } = useSearchResultsQuery(
+    debouncedSearchParameters
+  );
   const starredQuery = useStarredQuery();
-  const { mutate } = usePatchResultMutation(searchParameters);
+  const { mutate } = usePatchResultMutation(debouncedSearchParameters);
 
   const totalStarred = starredQuery.data?.length || 0;
 
@@ -27,26 +28,28 @@ export function SearchResults() {
   );
 
   return (
-    <Box>
+    <section>
       <Typography variant="h4" fontWeight={600} color="primary" mb={5}>
         Search results
       </Typography>
 
       <SearchInput
-        value={searchQuery?.q || ""}
+        value={searchParameters?.q || ""}
         id="search-input"
-        onChange={(e) => {
-          setSearchQuery({ q: e.target.value, _limit: 10 });
+        onChange={(ev) => {
+          setSearchParameters({ q: ev.target.value, _limit: 10 });
         }}
       />
+
       <Box textAlign="right">
         <Button
           variant="outlined"
-          onClick={() => setSearchQuery({ starred: true })}
+          onClick={() => setSearchParameters({ starred: true })}
         >
           Starred: {totalStarred}
         </Button>
       </Box>
+
       <Box mt={4}>
         <SearchList
           isLoading={isLoading}
@@ -56,6 +59,6 @@ export function SearchResults() {
           handleOnClick={handleOnClick}
         />
       </Box>
-    </Box>
+    </section>
   );
 }
