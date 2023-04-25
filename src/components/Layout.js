@@ -29,7 +29,7 @@ export function Layout({ children }) {
           <img src="/logo.svg" alt="brightwheel logo" width="209" height="34" />
         </ContainerLogo>
       </Header>
-      <Box component="main" flex={1} pt={4}>
+      <Box component="main" flex={1} py={5}>
         <Container>{children}</Container>
       </Box>
       <Footer>© 2023 Brightwheel - All rights reserved</Footer>
